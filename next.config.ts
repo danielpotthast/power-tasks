@@ -1,7 +1,11 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next'
+
+const basePath = process.env.NEXT_BASE_PATH ?? ''
 
 const nextConfig: NextConfig = {
-  /* config options here */
-};
+  output: 'export',
+  basePath,
+  allowedDevOrigins: ['10.30.0.13'],
+}
 
-export default nextConfig;
+export default nextConfig

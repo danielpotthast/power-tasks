@@ -1,0 +1,16 @@
+{
+  "name": "WauFlow",
+  "short_name": "WauFlow",
+  "description": "Aufgaben passend zu deiner Power.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
