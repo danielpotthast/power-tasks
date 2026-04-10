@@ -8,6 +8,12 @@ export const de = {
     subtitle: 'Wie viel Energie hast du heute?',
     confirm: 'Los geht\'s',
     adjustHint: 'Du kannst die Energie jederzeit noch anpassen.',
+    saving: 'Speichere…',
+    greetingMorning: 'Guten Morgen! 👋',
+    greetingNoon: 'Guten Tag! ☀️',
+    greetingAfternoon: 'Guten Nachmittag! 🌤️',
+    greetingEvening: 'Guten Abend! 🌙',
+    greetingNight: 'Noch wach? 🦉',
   },
 
   energy: {
@@ -48,6 +54,11 @@ export const de = {
 
     completed: 'Erledigt',
     open: 'Offen',
+    saving: 'Speichere…',
+    edit: 'Bearbeiten',
+    ariaMarkDone: 'Als erledigt markieren',
+    ariaMarkOpen: 'Als offen markieren',
+    noEnergyYet: 'Wie fit bist du heute?',
   },
 
   history: {
@@ -58,6 +69,10 @@ export const de = {
     openCount: (n: number) => `${n} offen`,
     energyWas: 'Energie war:',
     noTasks: 'Keine Aufgaben an diesem Tag.',
+    completedSection: (n: number) => `Erledigt (${n})`,
+    openSection: (n: number) => `Nicht erledigt (${n})`,
+    ariaOlderDay: 'Älterer Tag',
+    ariaNewerDay: 'Neuerer Tag',
   },
 
   categories: {
@@ -68,8 +83,10 @@ export const de = {
     rename: 'Umbenennen',
     delete: 'Löschen',
     confirmDelete: 'Kategorie löschen? Aufgaben bleiben erhalten.',
+    confirmDeleteShort: 'Löschen?',
     none: 'Keine Kategorie',
     dragHint: 'Halten & ziehen zum Sortieren',
+    ariaDrag: 'Verschieben',
   },
 
   settings: {

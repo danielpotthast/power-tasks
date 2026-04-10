@@ -16,11 +16,11 @@ interface CheckInModalProps {
 
 function getGreeting(): string {
   const hour = new Date().getHours()
-  if (hour >= 4 && hour < 11) return 'Guten Morgen! 👋'
-  if (hour >= 11 && hour < 14) return 'Guten Tag! ☀️'
-  if (hour >= 14 && hour < 18) return 'Guten Nachmittag! 🌤️'
-  if (hour >= 18 && hour < 22) return 'Guten Abend! 🌙'
-  return 'Noch wach? 🦉'
+  if (hour >= 4 && hour < 11) return t.checkin.greetingMorning
+  if (hour >= 11 && hour < 14) return t.checkin.greetingNoon
+  if (hour >= 14 && hour < 18) return t.checkin.greetingAfternoon
+  if (hour >= 18 && hour < 22) return t.checkin.greetingEvening
+  return t.checkin.greetingNight
 }
 
 export function CheckInModal({ open }: CheckInModalProps) {
@@ -44,24 +44,28 @@ export function CheckInModal({ open }: CheckInModalProps) {
         className="sm:max-w-md rounded-3xl border-0 shadow-2xl p-0 overflow-hidden"
       >
         <div className="relative">
-          {/* Farbiger Header basierend auf Auswahl */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={selected ?? 'none'}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className={cn(
-                'h-32 flex items-center justify-center text-6xl transition-all duration-500',
-                selectedMeta
-                  ? `gradient-energy-${selected}`
-                  : 'bg-gradient-to-br from-violet-100 to-indigo-100'
-              )}
-            >
-              {selectedMeta ? selectedMeta.emoji : '✨'}
-            </motion.div>
-          </AnimatePresence>
+          {/* Farbiger Header basierend auf Auswahl – Hintergrund snappt sofort, nur Emoji animiert */}
+          <div
+            className={cn(
+              'h-32 flex items-center justify-center text-6xl',
+              selectedMeta
+                ? `gradient-energy-${selected}`
+                : 'bg-gradient-to-br from-violet-100 to-indigo-100'
+            )}
+          >
+            <AnimatePresence mode="sync" initial={false}>
+              <motion.span
+                key={selected ?? 'none'}
+                initial={{ opacity: 0, scale: 0.6 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.6 }}
+                transition={{ duration: 0.15 }}
+                className="select-none"
+              >
+                {selectedMeta ? selectedMeta.emoji : '✨'}
+              </motion.span>
+            </AnimatePresence>
+          </div>
 
           <div className="p-6 space-y-5">
             <div className="text-center space-y-1">
@@ -91,7 +95,7 @@ export function CheckInModal({ open }: CheckInModalProps) {
               disabled={!selected || loading}
               className="w-full rounded-xl py-5 text-base font-semibold"
             >
-              {loading ? 'Speichere...' : t.checkin.confirm}
+              {loading ? t.checkin.saving : t.checkin.confirm}
             </Button>
 
             <p className="text-xs text-center text-muted-foreground">

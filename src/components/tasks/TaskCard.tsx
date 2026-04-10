@@ -51,12 +51,12 @@ export function TaskCard({ task }: TaskCardProps) {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             className={cn(
-              'mt-0.5 flex-shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all duration-200',
+              'mt-0.5 shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all duration-200',
               task.completed
                 ? 'bg-emerald-500 border-emerald-500'
                 : [meta.borderColor, 'hover:' + meta.bgColor]
             )}
-            aria-label={task.completed ? 'Als offen markieren' : 'Als erledigt markieren'}
+            aria-label={task.completed ? t.tasks.ariaMarkOpen : t.tasks.ariaMarkDone}
           >
             <AnimatePresence>
               {task.completed && (
@@ -119,7 +119,7 @@ export function TaskCard({ task }: TaskCardProps) {
               size="icon"
               className="h-7 w-7 rounded-lg"
               onClick={() => setEditOpen(true)}
-              aria-label="Bearbeiten"
+              aria-label={t.tasks.edit}
             >
               <Pencil className="w-3.5 h-3.5" />
             </Button>
@@ -128,7 +128,7 @@ export function TaskCard({ task }: TaskCardProps) {
               size="icon"
               className="h-7 w-7 rounded-lg text-destructive hover:text-destructive"
               onClick={() => setConfirmDelete(true)}
-              aria-label="Löschen"
+              aria-label={t.tasks.delete}
             >
               <Trash2 className="w-3.5 h-3.5" />
             </Button>

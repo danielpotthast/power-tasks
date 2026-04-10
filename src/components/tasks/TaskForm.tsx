@@ -26,8 +26,7 @@ export function TaskForm({ initial, onSave, onCancel }: TaskFormProps) {
 
   const isValid = title.trim().length > 0 && energy !== undefined
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
+  async function handleSubmit() {
     if (!isValid) return
     setSaving(true)
     await onSave({
@@ -41,7 +40,7 @@ export function TaskForm({ initial, onSave, onCancel }: TaskFormProps) {
 
   return (
     <motion.form
-      onSubmit={handleSubmit}
+      onSubmit={(e) => { e.preventDefault(); void handleSubmit() }}
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       className="mt-2 space-y-4"
@@ -111,7 +110,7 @@ export function TaskForm({ initial, onSave, onCancel }: TaskFormProps) {
           {t.tasks.cancel}
         </Button>
         <Button type="submit" disabled={!isValid || saving} className="flex-1 rounded-xl">
-          {saving ? 'Speichere...' : t.tasks.save}
+          {saving ? t.tasks.saving : t.tasks.save}
         </Button>
       </div>
     </motion.form>

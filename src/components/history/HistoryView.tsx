@@ -58,7 +58,7 @@ export function HistoryView() {
           className="rounded-xl"
           disabled={selectedIndex >= history.length - 1}
           onClick={() => setSelectedIndex((i) => i + 1)}
-          aria-label="Älterer Tag"
+          aria-label={t.history.ariaOlderDay}
         >
           <ChevronLeft className="w-4 h-4" />
         </Button>
@@ -76,7 +76,7 @@ export function HistoryView() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className={cn(
-                  'flex-shrink-0 flex flex-col items-center gap-0.5 px-2.5 py-2 rounded-xl border-2 text-xs transition-all',
+                  'shrink-0 flex flex-col items-center gap-0.5 px-2.5 py-2 rounded-xl border-2 text-xs transition-all',
                   isSelected
                     ? [dayMeta.bgColor, dayMeta.borderColor]
                     : 'bg-muted/60 border-transparent hover:border-border'
@@ -100,7 +100,7 @@ export function HistoryView() {
           className="rounded-xl"
           disabled={selectedIndex <= 0}
           onClick={() => setSelectedIndex((i) => i - 1)}
-          aria-label="Neuerer Tag"
+          aria-label={t.history.ariaNewerDay}
         >
           <ChevronRight className="w-4 h-4" />
         </Button>
@@ -149,7 +149,7 @@ export function HistoryView() {
               {completedTasks.length > 0 && (
                 <section>
                   <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">
-                    Erledigt ({completedTasks.length})
+                    {t.history.completedSection(completedTasks.length)}
                   </h3>
                   <div className="space-y-1.5">
                     {completedTasks.map((task) => {
@@ -174,7 +174,7 @@ export function HistoryView() {
                   {completedTasks.length > 0 && <Separator />}
                   <section>
                     <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">
-                      Nicht erledigt ({openTasks.length})
+                      {t.history.openSection(openTasks.length)}
                     </h3>
                     <div className="space-y-1.5">
                       {openTasks.map((task) => {

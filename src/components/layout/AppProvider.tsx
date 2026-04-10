@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import {ReactNode, useEffect, useRef} from 'react'
 import { useDayStore } from '@/lib/stores/dayStore'
 import { useTaskStore } from '@/lib/stores/taskStore'
 import { useCategoryStore } from '@/lib/stores/categoryStore'
@@ -8,7 +8,7 @@ import { dayService } from '@/lib/services/dayService'
 import { CheckInModal } from '@/components/energy/CheckInModal'
 import { useTheme } from '@/lib/hooks/useTheme'
 
-export function AppProvider({ children }: { children: React.ReactNode }) {
+export function AppProvider({ children }: { children: ReactNode }) {
   const { initialize, checkInRequired, initialized, settings } = useDayStore()
   const { loadToday } = useTaskStore()
   const { load: loadCategories } = useCategoryStore()

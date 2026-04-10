@@ -86,7 +86,7 @@ function SortableRow({ category }: { category: Category }) {
         {...attributes}
         {...listeners}
         className="text-muted-foreground/40 hover:text-muted-foreground cursor-grab active:cursor-grabbing touch-none p-1 -ml-1"
-        aria-label="Verschieben"
+        aria-label={t.categories.ariaDrag}
       >
         <GripVertical className="w-4 h-4" />
       </button>
@@ -108,7 +108,7 @@ function SortableRow({ category }: { category: Category }) {
       )}
 
       {/* Aktions-Buttons */}
-      <div className="flex items-center gap-1 flex-shrink-0">
+      <div className="flex items-center gap-1 shrink-0">
         {editing ? (
           <>
             <Button size="icon" variant="ghost" className="h-7 w-7 rounded-lg text-emerald-600" onClick={handleRename}>
@@ -120,7 +120,7 @@ function SortableRow({ category }: { category: Category }) {
           </>
         ) : confirmDelete ? (
           <>
-            <span className="text-xs text-destructive mr-1">Löschen?</span>
+            <span className="text-xs text-destructive mr-1">{t.categories.confirmDeleteShort}</span>
             <Button size="icon" variant="ghost" className="h-7 w-7 rounded-lg text-destructive" onClick={handleDelete}>
               <Check className="w-3.5 h-3.5" />
             </Button>
@@ -214,10 +214,10 @@ export function CategoryManager() {
                   if (e.key === 'Escape') setAdding(false)
                 }}
               />
-              <Button size="icon" className="rounded-xl flex-shrink-0" onClick={handleAdd} disabled={!newName.trim()}>
+              <Button size="icon" className="rounded-xl shrink-0" onClick={handleAdd} disabled={!newName.trim()}>
                 <Check className="w-4 h-4" />
               </Button>
-              <Button size="icon" variant="ghost" className="rounded-xl flex-shrink-0" onClick={() => setAdding(false)}>
+              <Button size="icon" variant="ghost" className="rounded-xl shrink-0" onClick={() => setAdding(false)}>
                 <X className="w-4 h-4" />
               </Button>
             </div>

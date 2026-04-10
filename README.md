@@ -18,16 +18,16 @@ Einmal täglich (nach dem konfigurierten Reset, Standard 04:00 Uhr) gibt der Nut
 
 ## Tech Stack
 
-| Schicht | Technologie |
-|---|---|
-| Framework | Next.js 16 (App Router) |
-| Sprache | TypeScript 5 |
-| Styling | Tailwind CSS v4 + shadcn/ui (base-ui) |
-| State | Zustand |
-| Datenbank | Dexie.js (IndexedDB) |
-| Animationen | Framer Motion |
-| Drag & Drop | @dnd-kit |
-| Datumsverarbeitung | date-fns v4 |
+| Schicht            | Technologie                           |
+|--------------------|---------------------------------------|
+| Framework          | Next.js 16 (App Router)               |
+| Sprache            | TypeScript 5                          |
+| Styling            | Tailwind CSS v4 + shadcn/ui (base-ui) |
+| State              | Zustand                               |
+| Datenbank          | Dexie.js (IndexedDB)                  |
+| Animationen        | Framer Motion                         |
+| Drag & Drop        | @dnd-kit                              |
+| Datumsverarbeitung | date-fns v4                           |
 
 ## Projektstruktur
 

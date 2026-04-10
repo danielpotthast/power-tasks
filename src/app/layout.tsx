@@ -4,6 +4,7 @@ import './globals.css'
 import { AppProvider } from '@/components/layout/AppProvider'
 import { AppHeader } from '@/components/layout/AppHeader'
 import { Toaster } from '@/components/ui/sonner'
+import {ReactNode} from "react";
 
 const geist = Geist({
   variable: '--font-sans',
@@ -24,7 +25,7 @@ export const metadata: Metadata = {
   icons: { icon: `${basePath}/favicon.svg` },
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="de" className={`${geist.variable} ${geistMono.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-background">

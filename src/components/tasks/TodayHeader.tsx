@@ -8,6 +8,7 @@ import { ENERGY_META } from '@/types'
 import { motion, AnimatePresence } from 'framer-motion'
 import { cn } from '@/lib/utils'
 import { DachshundIcon } from '@/components/icons/DachshundIcon'
+import { t } from '@/i18n'
 
 export function TodayHeader() {
   const { today } = useDayStore()
@@ -28,8 +29,7 @@ export function TodayHeader() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: -8 }}
-      animate={{ opacity: 1, y: 0 }}
+      layout
       className={cn(
         'rounded-3xl p-5 border-2 transition-all duration-500',
         meta ? [meta.bgColor, meta.borderColor] : 'bg-muted border-border'
@@ -41,11 +41,11 @@ export function TodayHeader() {
             {today_date}
           </p>
           <h1 className="text-xl font-bold text-foreground">
-            {meta ? `${meta.emoji} ${meta.label}` : 'Wie fit bist du heute?'}
+            {meta ? `${meta.emoji} ${meta.label}` : t.tasks.noEnergyYet}
           </h1>
         </div>
 
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode="sync" initial={false}>
           {allDone ? (
             <motion.div
               key="wau"
@@ -53,7 +53,7 @@ export function TodayHeader() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.5 }}
               transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-              className="flex-shrink-0 flex flex-col items-center gap-0.5"
+              className="shrink-0 flex flex-col items-center gap-0.5"
             >
               <DachshundIcon className="w-12 h-9 text-foreground" />
               <p className="text-xs font-bold text-foreground tracking-wide">Wau!</p>
@@ -64,7 +64,7 @@ export function TodayHeader() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="flex-shrink-0 flex flex-col items-center gap-1"
+              className="shrink-0 flex flex-col items-center gap-1"
             >
               <ProgressRing progress={progress} color={meta?.color ?? 'text-primary'} />
               <p className="text-xs text-muted-foreground">
