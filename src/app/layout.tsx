@@ -15,11 +15,13 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 })
 
+const basePath = process.env.NEXT_BASE_PATH ?? ''
+
 export const metadata: Metadata = {
   title: 'WauFlow',
   description: 'Aufgaben passend zu deiner Power.',
-  manifest: '/manifest.json',
-  icons: { icon: '/favicon.svg' },
+  // manifest is auto-linked via src/app/manifest.ts
+  icons: { icon: `${basePath}/favicon.svg` },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
