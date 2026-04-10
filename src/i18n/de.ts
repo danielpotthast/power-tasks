@@ -5,11 +5,9 @@ export const de = {
   },
 
   checkin: {
-    title: 'Guten Morgen! 👋',
     subtitle: 'Wie viel Energie hast du heute?',
-    description:
-      'Wähle deinen Energie-Level – wir zeigen dir nur Aufgaben, die du heute schaffen kannst.',
     confirm: 'Los geht\'s',
+    adjustHint: 'Du kannst die Energie jederzeit noch anpassen.',
   },
 
   energy: {

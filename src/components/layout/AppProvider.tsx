@@ -20,6 +20,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     initialize()
     loadToday()
     loadCategories()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // Automatischer Reset-Timer: prüft täglich zur eingestellten Uhrzeit
@@ -53,6 +54,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     return () => {
       if (resetTimerRef.current) clearTimeout(resetTimerRef.current)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [settings?.resetTime])
 
   return (

@@ -14,6 +14,15 @@ interface CheckInModalProps {
   open: boolean
 }
 
+function getGreeting(): string {
+  const hour = new Date().getHours()
+  if (hour >= 4 && hour < 11) return 'Guten Morgen! 👋'
+  if (hour >= 11 && hour < 14) return 'Guten Tag! ☀️'
+  if (hour >= 14 && hour < 18) return 'Guten Nachmittag! 🌤️'
+  if (hour >= 18 && hour < 22) return 'Guten Abend! 🌙'
+  return 'Noch wach? 🦉'
+}
+
 export function CheckInModal({ open }: CheckInModalProps) {
   const [selected, setSelected] = useState<EnergyLevel | undefined>(undefined)
   const [loading, setLoading] = useState(false)
@@ -56,13 +65,9 @@ export function CheckInModal({ open }: CheckInModalProps) {
 
           <div className="p-6 space-y-5">
             <div className="text-center space-y-1">
-              <h2 className="text-2xl font-bold text-foreground">{t.checkin.title}</h2>
+              <h2 className="text-2xl font-bold text-foreground">{getGreeting()}</h2>
               <p className="text-muted-foreground">{t.checkin.subtitle}</p>
             </div>
-
-            <p className="text-sm text-center text-muted-foreground/80 bg-muted rounded-xl px-4 py-2">
-              {t.checkin.description}
-            </p>
 
             <EnergyPicker value={selected} onChange={setSelected} size="lg" />
 
@@ -88,6 +93,10 @@ export function CheckInModal({ open }: CheckInModalProps) {
             >
               {loading ? 'Speichere...' : t.checkin.confirm}
             </Button>
+
+            <p className="text-xs text-center text-muted-foreground">
+              {t.checkin.adjustHint}
+            </p>
           </div>
         </div>
       </DialogContent>

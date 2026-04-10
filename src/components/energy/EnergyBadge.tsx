@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ENERGY_META, type EnergyLevel } from '@/types'
+import { ENERGY_META } from '@/types'
 import { useDayStore } from '@/lib/stores/dayStore'
 import { EnergyPicker } from './EnergyPicker'
 import { t } from '@/i18n'

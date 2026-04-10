@@ -1,11 +1,12 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Input } from '@/components/ui/input'
 import { useDayStore } from '@/lib/stores/dayStore'
 import { t } from '@/i18n'
 import { cn } from '@/lib/utils'
+import type { AppSettings } from '@/types'
 
 const themeOptions: Array<{ value: 'light' | 'dark' | 'system'; label: string }> = [
   { value: 'light', label: t.settings.themeOptions.light },
@@ -15,30 +16,32 @@ const themeOptions: Array<{ value: 'light' | 'dark' | 'system'; label: string }>
 
 export function SettingsForm() {
   const { settings, updateSettings, initialized } = useDayStore()
-  const [resetTime, setResetTime] = useState('04:00')
-  const [theme, setTheme] = useState<'light' | 'dark' | 'system'>('system')
 
-  useEffect(() => {
-    if (settings) {
-      setResetTime(settings.resetTime)
-      setTheme(settings.theme)
-    }
-  }, [settings])
+  if (!initialized || !settings) return null
 
-  // Theme: sofort beim Klick speichern
+  return <SettingsFormInner settings={settings} updateSettings={updateSettings} />
+}
+
+function SettingsFormInner({
+  settings,
+  updateSettings,
+}: {
+  settings: AppSettings
+  updateSettings: (partial: Partial<Omit<AppSettings, 'id'>>) => Promise<void>
+}) {
+  const [resetTime, setResetTime] = useState(settings.resetTime)
+  const [theme, setTheme] = useState(settings.theme)
+
   async function handleThemeChange(value: 'light' | 'dark' | 'system') {
     setTheme(value)
     await updateSettings({ theme: value })
   }
 
-  // Reset-Zeit: beim Verlassen des Feldes speichern
   async function handleResetTimeBlur() {
-    if (resetTime !== settings?.resetTime) {
+    if (resetTime !== settings.resetTime) {
       await updateSettings({ resetTime })
     }
   }
-
-  if (!initialized) return null
 
   return (
     <motion.div
@@ -90,10 +93,10 @@ export function SettingsForm() {
 
       {/* Fiffi */}
       <div className="rounded-2xl border border-dashed border-border p-5 space-y-2">
-        <pre className="text-[10px] leading-tight text-muted-foreground/70 font-mono overflow-x-auto select-none">{`
+        <pre className="text-[10px] leading-tight text-muted-foreground/70 text-center font-mono overflow-x-auto select-none">{`
                             __
-     ,                    ," e\`--o
-    ((                   (  | __,'
+       ,                    ," e\`--o
+        ((                   (  | __,'
      \\~----------------' \\_;/
       (                      /
       /) ._______________.  )
@@ -101,7 +104,7 @@ export function SettingsForm() {
       \`\`-'               \`\`-'
         `}</pre>
         <p className="text-xs text-center text-muted-foreground/50 italic">
-          Fiffi, der offizielle Power-Tasks-Dackel 🐾
+          Fiffi, der offizielle WauFlow-Dackel 🐾
         </p>
       </div>
     </motion.div>

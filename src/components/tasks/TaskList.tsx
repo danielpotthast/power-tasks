@@ -70,7 +70,7 @@ function CategorySection({
 
 export function TaskList() {
   const { tasks, addTask } = useTaskStore()
-  const { today } = useDayStore()
+  const { today, setCheckInRequired } = useDayStore()
   const { categories } = useCategoryStore()
   const [addOpen, setAddOpen] = useState(false)
   const [hiddenVisible, setHiddenVisible] = useState(false)
@@ -120,7 +120,7 @@ export function TaskList() {
       {/* Offene Aufgaben — nach Kategorien gruppiert */}
       {openGroups.length > 0 && (
         <div className="space-y-3">
-          {openGroups.map((group, i) => (
+          {openGroups.map((group) => (
             <CategorySection
               key={group.categoryId ?? '__none__'}
               label={categories.length > 0 ? group.categoryName : ''}
@@ -196,8 +196,12 @@ export function TaskList() {
           <DialogTitle>{t.tasks.addTitle}</DialogTitle>
           <TaskForm
             onSave={async (input) => {
+              const isFirstTask = tasks.length === 0 && !today
               await addTask(input)
               setAddOpen(false)
+              if (isFirstTask) {
+                setCheckInRequired(true)
+              }
             }}
             onCancel={() => setAddOpen(false)}
           />

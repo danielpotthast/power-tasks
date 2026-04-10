@@ -13,9 +13,10 @@ interface DayState {
   checkIn: (level: EnergyLevel) => Promise<void>
   updateEnergy: (level: EnergyLevel) => Promise<void>
   updateSettings: (partial: Partial<Omit<AppSettings, 'id'>>) => Promise<void>
+  setCheckInRequired: (value: boolean) => void
 }
 
-export const useDayStore = create<DayState>((set, get) => ({
+export const useDayStore = create<DayState>((set) => ({
   today: null,
   settings: null,
   checkInRequired: false,
@@ -53,4 +54,6 @@ export const useDayStore = create<DayState>((set, get) => ({
     const updated = await settingsService.update(partial)
     set({ settings: updated })
   },
+
+  setCheckInRequired: (value) => set({ checkInRequired: value }),
 }))

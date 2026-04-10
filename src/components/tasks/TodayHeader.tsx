@@ -5,8 +5,9 @@ import { de } from 'date-fns/locale'
 import { useDayStore } from '@/lib/stores/dayStore'
 import { useTaskStore } from '@/lib/stores/taskStore'
 import { ENERGY_META } from '@/types'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { cn } from '@/lib/utils'
+import { DachshundIcon } from '@/components/icons/DachshundIcon'
 
 export function TodayHeader() {
   const { today } = useDayStore()
@@ -19,7 +20,8 @@ export function TodayHeader() {
     ? tasks.filter((t) => t.energyRequired <= currentEnergy)
     : tasks
   const completedCount = visibleTasks.filter((t) => t.completed).length
-  const totalCount = visibleTasks.filter((t) => !t.completed).length + completedCount
+  const totalCount = visibleTasks.length
+  const allDone = totalCount > 0 && completedCount === totalCount
   const progress = totalCount > 0 ? completedCount / totalCount : 0
 
   const today_date = format(new Date(), 'EEEE, d. MMMM', { locale: de })
@@ -33,30 +35,45 @@ export function TodayHeader() {
         meta ? [meta.bgColor, meta.borderColor] : 'bg-muted border-border'
       )}
     >
-      <div className="flex items-start justify-between gap-4">
+      <div className="flex items-center justify-between gap-4">
         <div>
           <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-0.5">
             {today_date}
           </p>
           <h1 className="text-xl font-bold text-foreground">
-            Dein Tag{meta ? ` – ${meta.emoji} ${meta.label}` : ''}
+            {meta ? `${meta.emoji} ${meta.label}` : 'Wie fit bist du heute?'}
           </h1>
-          {meta && (
-            <p className="text-sm text-muted-foreground mt-0.5">{meta.description}</p>
-          )}
         </div>
 
-        {/* Progress Ring */}
-        {totalCount > 0 && (
-          <div className="flex-shrink-0 flex flex-col items-center gap-1">
-            <ProgressRing progress={progress} color={meta?.color ?? 'text-primary'} />
-            <p className="text-xs text-muted-foreground">
-              {completedCount}/{totalCount}
-            </p>
-          </div>
-        )}
+        <AnimatePresence mode="wait">
+          {allDone ? (
+            <motion.div
+              key="wau"
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.5 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+              className="flex-shrink-0 flex flex-col items-center gap-0.5"
+            >
+              <DachshundIcon className="w-12 h-9 text-foreground" />
+              <p className="text-xs font-bold text-foreground tracking-wide">Wau!</p>
+            </motion.div>
+          ) : totalCount > 0 ? (
+            <motion.div
+              key="ring"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="flex-shrink-0 flex flex-col items-center gap-1"
+            >
+              <ProgressRing progress={progress} color={meta?.color ?? 'text-primary'} />
+              <p className="text-xs text-muted-foreground">
+                {completedCount}/{totalCount}
+              </p>
+            </motion.div>
+          ) : null}
+        </AnimatePresence>
       </div>
-
     </motion.div>
   )
 }

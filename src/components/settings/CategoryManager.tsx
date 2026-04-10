@@ -151,7 +151,7 @@ export function CategoryManager() {
   const [adding, setAdding] = useState(false)
   const addInputRef = useRef<HTMLInputElement>(null)
 
-  useEffect(() => { load() }, [])
+  useEffect(() => { load() }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Touch + Pointer Sensor — funktioniert auf Mobile & Desktop
   const sensors = useSensors(
